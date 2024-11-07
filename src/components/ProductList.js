@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// src/components/ProductList.js
+import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 
 function ProductList() {
@@ -6,23 +7,29 @@ function ProductList() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await api.get('/api/products');
-      setProducts(response.data);
+      try {
+        const response = await api.get('/api/products');
+        console.log('Buscando produtos', products)
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar produtos", error);
+      }
     };
     fetchProducts();
   }, []);
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Lista de Produtos</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map(product => (
-          <div key={product['id:']} className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold mb-2">{product['name:']}</h2>
-            <p className="text-gray-700 mb-2">Price: R$ {product['price:']}</p>
-          </div>
+      <h2 className="text-3xl font-bold mb-6">Lista de Produtos</h2>
+      <ul className="space-y-4">
+        {products.map((product) => (
+          <li key={product.id} className="bg-white p-4 rounded shadow">
+            <h3 className="text-xl font-bold">{product['name:']}</h3>
+            <p>Preço: R$ {product['price:']}</p>
+            <p>Descrição: {product.description}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

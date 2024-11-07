@@ -11,11 +11,10 @@ function Login({ onLogin }) {
     e.preventDefault();
     try {
       const response = await api.post('/login', { username, password });
-      alert(response.data.message);
-      onLogin(true); // Seta o estado como logado
-      navigate('/products'); // Redireciona para a lista de produtos
+      onLogin(true); // Define o estado como logado
+      navigate('/home'); // Redireciona para a Home
     } catch (error) {
-      alert('Erro ao fazer login');
+      alert('Credenciais invalidas chefe!');
       onLogin(false);
     }
   };
