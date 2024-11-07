@@ -9,7 +9,7 @@ function ProductList() {
     const fetchProducts = async () => {
       try {
         const response = await api.get('/api/products');
-        console.log('Buscando produtos', products)
+        console.log('Buscando produtos', products.j)
         setProducts(response.data);
       } catch (error) {
         console.error("Erro ao buscar produtos", error);
@@ -26,7 +26,7 @@ function ProductList() {
           <li key={product.id} className="bg-white p-4 rounded shadow">
             <h3 className="text-xl font-bold">{product['name:']}</h3>
             <p>Preço: R$ {product['price:']}</p>
-            <p>Descrição: {product.description}</p>
+            <p>Descrição: {product['description']}</p>
           </li>
         ))}
       </ul>
