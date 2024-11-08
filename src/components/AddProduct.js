@@ -1,11 +1,13 @@
 // src/components/AddProduct.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
 function AddProduct() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,9 +17,9 @@ function AddProduct() {
             setName('');
             setPrice('');
             setDescription('');
+            navigate('/Home'); // Redireciona para a página "Home"
         } catch (error) {
             console.error("Erro ao adicionar produto", error);
-
         }
     };
 
@@ -54,4 +56,3 @@ function AddProduct() {
 }
 
 export default AddProduct;
-
