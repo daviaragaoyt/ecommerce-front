@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';  // Importando a biblioteca js-cookie
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -10,11 +11,22 @@ function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Envia a requisição de login para a API
       const response = await api.post('/login', { username, password });
-      onLogin(true); // Define o estado como logado
-      navigate('/home'); // Redireciona para a Home
+
+      // Verifique a resposta da API
+      const userData = response.data; // Aqui você pega o JSON da resposta
+
+      // Salvar o JSON completo no cookie (pode ser um objeto, ou apenas campos específicos)
+      Cookies.set('userData', JSON.stringify(userData), { expires: 7 }); // Salva o cookie por 7 dias
+
+      // Define o estado de login no componente pai
+      onLogin(true);
+      
+      // Redireciona para a home após o login bem-sucedido
+      navigate('/home'); 
     } catch (error) {
-      alert('Credenciais invalidas chefe!');
+      alert('Credenciais inválidas, chefe!');
       onLogin(false);
     }
   };
