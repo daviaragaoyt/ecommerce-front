@@ -19,6 +19,7 @@ function Login({ onLogin }) {
 
       // Salvar o JSON completo no cookie (pode ser um objeto, ou apenas campos específicos)
       Cookies.set('userData', JSON.stringify(userData), { expires: 7 }); // Salva o cookie por 7 dias
+      console.log(response.data)
 
       // Define o estado de login no componente pai
       onLogin(true);

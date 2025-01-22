@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEdit, faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrash,
+  faEdit,
+  faCartPlus,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -13,6 +19,11 @@ function ProductList() {
     description: "",
     imageBase64: "",
   });
+
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1); // Volta para a página anterior
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -76,6 +87,12 @@ function ProductList() {
 
   return (
     <div className="container mx-auto p-6">
+      <button
+        onClick={handleGoBack}
+        className="text-blue-500 hover:text-blue-700"
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
       <h2 className="text-3xl font-bold mb-6">Lista de Produtos</h2>
       {isUpdating ? (
         <div>Formulário de atualização em construção...</div>
